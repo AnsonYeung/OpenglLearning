@@ -4,12 +4,12 @@
 namespace opengllearning {
 	class Shader {
 	public:
-		Shader(std::string_view filename, GLenum type);
+		const GLuint id;
+		Shader(const char *filename, GLenum type);
 		Shader(const Shader &) = delete;
 		~Shader();
 		operator bool();
-		GLuint getId();
 	private:
-		GLuint m_shaderId;
+		bool good = true;
 	};
 }

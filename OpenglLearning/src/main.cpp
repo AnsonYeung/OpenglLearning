@@ -6,6 +6,7 @@
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main() {
+    spdlog::set_level(spdlog::level::debug);
     spdlog::info("Initializing and creating GLFW Window");
 
     if (!glfwInit()) {
@@ -13,7 +14,8 @@ int main() {
         return 1;
     }
 
-    opengllearning::app::run();
+    opengllearning::App app;
+    app.run();
     
     spdlog::info("Terminating");
     glfwTerminate();

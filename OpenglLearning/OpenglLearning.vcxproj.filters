@@ -33,6 +33,15 @@
     <ClCompile Include="src\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\WindowWrapper.h">
@@ -47,16 +56,30 @@
     <ClInclude Include="src\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="src\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="res\shader\fragmentshader.frag">
+    <Image Include="res\textures\container.jpg">
       <Filter>Resource Files</Filter>
-    </FxCompile>
-    <FxCompile Include="res\shader\vertexshader.vert">
+    </Image>
+    <Image Include="res\textures\awesomeface.png">
       <Filter>Resource Files</Filter>
-    </FxCompile>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shader\fragmentshader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\shader\vertexshader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

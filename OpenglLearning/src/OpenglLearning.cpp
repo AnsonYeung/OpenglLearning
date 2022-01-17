@@ -1,21 +1,20 @@
-#include "WindowWrapper.h"
 #include "OpenglLearning.h"
-#include "Shader.h"
+#include "Texture2D.h"
 #pragma warning(push)
 #pragma warning(disable: 4005)
 #include <spdlog/spdlog.h>
 #pragma warning(pop)
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 namespace opengllearning {
-namespace app {
 
-    inline GLFWwindow *window;
+    WindowWrapper App::initWindow() {
 
-    void draw();
+        WindowWrapper window(1024, 768, "Learn OpenGL", nullptr, nullptr);
 
-    void run() {
-        opengllearning::WindowWrapper window_obj(800, 600, "Learn OpenGL", nullptr, nullptr);
-
-        if (!window_obj) {
+        if (!window) {
             spdlog::critical("Failed to create GLFW window");
             glfwTerminate();
             exit(1);
@@ -23,8 +22,7 @@ namespace app {
 
         spdlog::info("Created GLFW Window");
 
-        window = window_obj.get_ptr();
-        glfwMakeContextCurrent(window);
+        window.makeContextCurrent();
 
         if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
             spdlog::critical("Failed to initialize GLAD");
@@ -32,14 +30,43 @@ namespace app {
             exit(1);
         }
 
-        glViewport(0, 0, 800, 600);
-        glfwSetFramebufferSizeCallback(window, on_framebuffer_resize);
+        glViewport(0, 0, 1024, 768);
+        window.setFramebufferSizeCallback(on_framebuffer_resize);
 
+        return window;
+
+    }
+    
+    ShaderProgram App::initShader() {
+
+        // shader program are run in the gpu graphics pipeline
+        return { "res/shader/vertexshader.vert", "res/shader/fragmentshader.frag" };
+
+    }
+
+    void App::run() {
+
+        // load the textures
+        opengllearning::Texture2D tex0(GL_TEXTURE0, "res/textures/container.jpg");
+        opengllearning::Texture2D tex1(GL_TEXTURE1, "res/textures/awesomeface.png");
+
+        if (!tex0 || !tex1) {
+            spdlog::critical("Failed to load texture");
+            glfwTerminate();
+            exit(1);
+        }
+
+        // set the textures
+        program.setUniform("ourTexture0", 0);
+        program.setUniform("ourTexture1", 1);
+
+        // now we need to feed input to our shader program
+        // store the vertices in the array buffer, these will be our actual input to the shader
         float vertices[] = {
-            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
-            0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+            0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
         };
 
         GLuint vbo;
@@ -48,31 +75,28 @@ namespace app {
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-        opengllearning::Shader vertexShader("res/shader/vertexshader.vert", GL_VERTEX_SHADER);
-        opengllearning::Shader fragmentShader("res/shader/fragmentshader.frag", GL_FRAGMENT_SHADER);
-
-        GLuint shaderProgram = glCreateProgram();
-        glAttachShader(shaderProgram, vertexShader.getId());
-        glAttachShader(shaderProgram, fragmentShader.getId());
-        glLinkProgram(shaderProgram);
-        glUseProgram(shaderProgram);
-
-        unsigned int indices[] = {
-            0, 1, 3,
-            0, 2, 3
-        };
-
+        // vertex array objects are needed to store the vertex attrib arrays
         GLuint vao;
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
 
-        // "aPos" which is passed to the vertex shader
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
+        // in "aPos"
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)0);
         glEnableVertexAttribArray(0);
 
-        // "aColor" which is passed to the vertex shader
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+        // in "aColor"
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(3 * sizeof(float)));
         glEnableVertexAttribArray(1);
+
+        // in "aTexCoord"
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(6 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+
+        // using element buffer object allow us to reuse vertices
+        unsigned int indices[] = {
+            0, 1, 3,
+            0, 2, 3
+        };
 
         GLuint ebo;
         glGenBuffers(1, &ebo);
@@ -80,42 +104,73 @@ namespace app {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+        // wireframe mode
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         bool normalizeFlag = false;
-        GLint nFlagLoc = glGetUniformLocation(shaderProgram, "normalizeFlag");
+        GLfloat translation[] = { 0.0f, 0.0f, 0.0f };
 
-        while (!glfwWindowShouldClose(window)) {
+        while (!window.shouldClose()) {
 
-            if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-                glfwSetWindowShouldClose(window, true);
+            if (window.getKey(GLFW_KEY_ESCAPE)) {
+                window.setShouldClose(true);
             }
 
-            if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
+            if (window.getKey(GLFW_KEY_H)) {
                 normalizeFlag = !normalizeFlag;
-                glUniform1i(nFlagLoc, normalizeFlag);
+                program.setUniform("normalizeFlag", normalizeFlag);
             }
+
+            if (window.getKey(GLFW_KEY_UP)) {
+                translation[1] += 0.05f;
+            }
+
+            if (window.getKey(GLFW_KEY_DOWN)) {
+                translation[1] -= 0.05f;
+            }
+
+            if (window.getKey(GLFW_KEY_LEFT)) {
+                translation[0] -= 0.05f;
+            }
+
+            if (window.getKey(GLFW_KEY_RIGHT)) {
+                translation[0] += 0.05f;
+            }
+
+            program.setUniform("translation", translation[0], translation[1], translation[2]);
 
             draw();
 
-            glfwWaitEvents();
-            //spdlog::info("Event received");
+            // process key event only when there is event? when mouse move, the loop will run faster too (oops)
+            // glfwWaitEvents();
+
+            // we need to use this so that our animation actually animates
+            glfwPollEvents();
         }
     }
 
-    void on_framebuffer_resize(GLFWwindow *window, int width, int height) {
+    void App::on_framebuffer_resize(GLFWwindow *window, int width, int height) {
         glViewport(0, 0, width, height);
-        draw();
     }
 
-    void draw() {
+    void App::draw() {
+
+        glm::mat4 transform(1.0f);
+        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+        transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+
+        program.setUniformMatrix4fv("transform", 1, GL_FALSE, glm::value_ptr(transform));
+
+        // Clear the buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
         // Draw directly
         //glDrawArrays(GL_TRIANGLES, 0, 3);
 
-        // Draw from the current element buffer object
+        // Draw using the current element buffer object
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-        glfwSwapBuffers(window);
+        window.swapBuffers();
+
     }
 
-} // app
 } // opengllearning

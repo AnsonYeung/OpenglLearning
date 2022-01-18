@@ -33,7 +33,7 @@ cmake-build-debug
 *.vcxproj.*
 CMakeCache.txt
 CMakeFiles
-*.cmake
+cmake_install.cmake
 *.sln
 build
 MakeFile

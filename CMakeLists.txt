@@ -14,6 +14,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(lib/glfw)
 
 aux_source_directory(src SRC_FILES)
+FILE(GLOB_RECURSE HEADER_FILES "src/*.h")
 
-add_executable(opengllearning ${SRC_FILES} lib/glad/src/glad.c lib/stb_image/src/stb_image.c)
+add_executable(opengllearning ${SRC_FILES} lib/glad/src/glad.c lib/stb_image/src/stb_image.c ${HEADER_FILES})
 target_link_libraries(opengllearning glfw)

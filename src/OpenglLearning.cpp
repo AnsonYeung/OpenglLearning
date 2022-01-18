@@ -15,7 +15,7 @@ namespace opengllearning {
         WindowWrapper window(1024, 768, "Learn OpenGL", nullptr, nullptr);
 
         if (!window) {
-            spdlog::critical("Failed to create GLFW window");
+            spdlog::critical("Error during creation of GLFW window, terminating");
             glfwTerminate();
             exit(1);
         }

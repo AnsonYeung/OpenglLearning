@@ -35,5 +35,5 @@ CMakeCache.txt
 CMakeFiles
 *.cmake
 *.sln
-
-
+build
+MakeFile

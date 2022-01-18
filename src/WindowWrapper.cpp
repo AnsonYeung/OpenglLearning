@@ -7,10 +7,11 @@ namespace opengllearning {
     WindowWrapper::WindowWrapper(int width, int height, const char *title, GLFWmonitor *monitor, GLFWwindow *share)
         : m_window(makeWindow(width, height, title, monitor, share)) {
 
-        spdlog::debug("Made window {}", fmt::ptr(m_window));
         if (!m_window) {
             spdlog::critical("Failed to create GLFW window");
+            return;
         }
+        spdlog::debug("Made window {}", fmt::ptr(m_window));
 
     }
 

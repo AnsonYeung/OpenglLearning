@@ -29,7 +29,4 @@ publish/
 tags
 tags.*
 cmake-build-debug
-*.vcxproj
-*.vcxproj.*
-*.sln
 build

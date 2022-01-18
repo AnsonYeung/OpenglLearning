@@ -60,8 +60,8 @@ namespace opengllearning {
     void App::run() {
 
         // load the textures
-        opengllearning::Texture2D tex0(GL_TEXTURE0, "res/textures/container.jpg");
-        opengllearning::Texture2D tex1(GL_TEXTURE1, "res/textures/awesomeface.png");
+        Texture2D tex0(GL_TEXTURE0, "res/textures/container.jpg");
+        Texture2D tex1(GL_TEXTURE1, "res/textures/awesomeface.png");
 
         if (!tex0 || !tex1) {
             spdlog::critical("Failed to load texture");

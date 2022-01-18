@@ -3,10 +3,12 @@
 #pragma warning(disable: 4005)
 #include <spdlog/spdlog.h>
 #pragma warning(pop)
+#include <filesystem>
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main() {
     spdlog::set_level(spdlog::level::debug);
+    spdlog::debug("Current working directory is {}", std::filesystem::current_path().string());
     spdlog::info("Initializing and creating GLFW Window");
 
     if (!glfwInit()) {

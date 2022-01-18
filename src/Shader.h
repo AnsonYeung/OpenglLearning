@@ -1,6 +1,6 @@
 #pragma once
 #include "base.h"
-#include <string_view>
+#include <string>
 namespace opengllearning {
 	class Shader {
 	public:

@@ -31,9 +31,5 @@ tags.*
 cmake-build-debug
 *.vcxproj
 *.vcxproj.*
-CMakeCache.txt
-CMakeFiles
-cmake_install.cmake
 *.sln
 build
-MakeFile

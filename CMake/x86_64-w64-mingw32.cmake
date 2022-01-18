@@ -22,7 +22,7 @@ set(CMAKE_RC_COMPILER ${TOOLCHAIN_PREFIX}-windres)
 # search for programs in the build host environment
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY) Define the environment for cross-compiling with 64-bit MinGW-w64 GCC
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY) # Define the environment for cross-compiling with 64-bit MinGW-w64 GCC
 SET(CMAKE_SYSTEM_VERSION 1)
 SET(CMAKE_RANLIB         "x86_64-w64-mingw32-ranlib")
 
@@ -31,3 +31,4 @@ SET(CMAKE_FIND_ROOT_PATH "/usr/x86_64-w64-mingw32")
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")

@@ -3,17 +3,31 @@ Most code are slightly modified from [Learn OpenGL](https://learnopengl.com/). T
 This repository is me experimenting with OpenGL and try to understand what it does.  
 
 # Compiling
+## Compiling for current platform
 To build, first generate the required project files
 ```
 mkdir build
 cd build
 cmake ..
 ```
+You may need to install header files for GLFW to compile. See [compiling GLFW](https://www.glfw.org/docs/latest/compile.html) for the required headers.  
+On Debian and derivatives, you can use the following command to get all the dependencies.
+```
+sudo apt install xorg-dev
+```
 Then, either a Visual Studio solution, xcode project files or a makefile will be generated based on your system.
-## Visual Studio
+### Visual Studio
 Open the solution, then set `opengllearning` as startup project and compile.
-## Makefile
+### Makefile
 run `make` to generate the binary.
+## Cross-compiling on Unix for Windows
+Cross compiling will static link `libgcc` and `libstdc++` as the required dll might be absent in the running environment
+```
+mkdir build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=../CMake/x86_64-w64-mingw32.cmake ..
+```
+Then use `make` to generate the executable for Windows.
 
 # Running
 The binary has to be executed with the project root as the working directory for it to find the shader files.

@@ -14,8 +14,7 @@ int main() {
         return 1;
     }
 
-    opengllearning::App app;
-    app.run();
+    opengllearning::App().run();
     
     spdlog::info("Terminating");
     glfwTerminate();

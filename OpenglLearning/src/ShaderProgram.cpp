@@ -1,18 +1,25 @@
 #include "ShaderProgram.h"
+#pragma warning(push)
+#pragma warning(disable: 4005)
+#include <spdlog/spdlog.h>
+#pragma warning(pop)
 namespace opengllearning {
 
 	ShaderProgram::ShaderProgram(const Shader &vert, const Shader &frag)
-        :id(glCreateProgram()){
+        :m_id(glCreateProgram()){
 
-        glAttachShader(id, vert.id);
-        glAttachShader(id, frag.id);
-        glLinkProgram(id);
-        glUseProgram(id);
+        glAttachShader(m_id, vert.id);
+        glAttachShader(m_id, frag.id);
+        glLinkProgram(m_id);
+        glUseProgram(m_id);
+
+        spdlog::debug("Created shader prorgram (id: {})", m_id);
 
 	}
 
     ShaderProgram::~ShaderProgram() {
-        glDeleteProgram(id);
+        glDeleteProgram(m_id);
+        spdlog::debug("Deleted shader prorgram (id: {})", m_id);
     }
 
     void ShaderProgram::setUniform(const std::string &name, GLint v0) {
@@ -36,7 +43,7 @@ namespace opengllearning {
         }
         
         // cache miss
-        GLuint loc = glGetUniformLocation(id, name.c_str());
+        GLuint loc = glGetUniformLocation(m_id, name.c_str());
         m_uniformCache[name] = loc;
         return loc;
 

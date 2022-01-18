@@ -3,7 +3,7 @@
 namespace opengllearning {
     class WindowWrapper {
     public:
-        GLFWwindow *const window;
+        GLFWwindow *const &glfwWindow = m_window;
         WindowWrapper(int width, int height, const char *title, GLFWmonitor *monitor, GLFWwindow *share);
         WindowWrapper(const WindowWrapper &) = delete;
         WindowWrapper(WindowWrapper &&) noexcept;
@@ -16,7 +16,7 @@ namespace opengllearning {
         int getKey(int key);
         operator bool();
     private:
-        bool good = true;
+        GLFWwindow *m_window;
         static GLFWwindow *makeWindow(int width, int height, const char *title, GLFWmonitor *monitor, GLFWwindow *share);
     };
 }

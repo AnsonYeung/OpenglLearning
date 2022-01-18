@@ -7,11 +7,12 @@
 namespace opengllearning {
 
 	Texture2D::Texture2D(GLenum texture, const char *filename)
-		: id(makeTexture()) {
+		: m_id(makeTexture()) {
 
-		if (!id) {
+		if (!m_id) {
 			spdlog::critical("Cannot create new texture");
-			good = false;
+			glDeleteTextures(1, &m_id);
+			m_id = 0;
 			return;
 		}
 
@@ -22,7 +23,8 @@ namespace opengllearning {
 
 		if (!textureData) {
 			spdlog::critical("Failed to load texture \"{}\"", filename);
-			good = false;
+			glDeleteTextures(1, &m_id);
+			m_id = 0;
 			return;
 		}
 
@@ -44,17 +46,20 @@ namespace opengllearning {
 		}
 
 		glActiveTexture(texture);
-		glBindTexture(GL_TEXTURE_2D, id);
+		glBindTexture(GL_TEXTURE_2D, m_id);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, sourceFileFormat, GL_UNSIGNED_BYTE, textureData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		stbi_image_free(textureData);
 
+		spdlog::debug("Created texture (id: {}) from file \"{}\"", m_id, filename);
+
 	}
 
 	Texture2D::~Texture2D() {
-		if (id) {
-			glDeleteTextures(1, &id);
+		if (m_id) {
+			glDeleteTextures(1, &m_id);
+			spdlog::debug("Deleted texture (id: {})", m_id);
 		}
 	}
 
@@ -65,7 +70,7 @@ namespace opengllearning {
 	}
 
 	Texture2D::operator bool() {
-		return good;
+		return m_id;
 	}
 
 } // opengllearning

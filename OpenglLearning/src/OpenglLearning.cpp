@@ -44,6 +44,19 @@ namespace opengllearning {
 
     }
 
+    App::App(): window(initWindow()), program(initShader()) {
+        windowAppMap[window.glfwWindow] = this;
+    }
+
+    App::~App() {
+        windowAppMap.erase(window.glfwWindow);
+    }
+
+    App &App::getAppByWindow(GLFWwindow *window) {
+        return *windowAppMap[window];
+    }
+
+
     void App::run() {
 
         // load the textures
@@ -151,6 +164,7 @@ namespace opengllearning {
 
     void App::on_framebuffer_resize(GLFWwindow *window, int width, int height) {
         glViewport(0, 0, width, height);
+        App::getAppByWindow(window).draw();
     }
 
     void App::draw() {

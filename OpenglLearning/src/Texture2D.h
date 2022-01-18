@@ -3,13 +3,13 @@
 namespace opengllearning {
 	class Texture2D {
 	public:
-		const GLuint id;
+		const GLuint &id = m_id;
 		Texture2D(GLenum texture, const char *filename);
 		Texture2D(const Texture2D &) = delete;
 		~Texture2D();
 		operator bool();
 	private:
-		bool good = true;
+		GLuint m_id;
 		static GLuint makeTexture();
 	};
 }

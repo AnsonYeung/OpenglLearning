@@ -1,4 +1,4 @@
-#include "OpenglLearning.h"
+#include "App.h"
 #pragma warning(push)
 #pragma warning(disable: 4005)
 #include <spdlog/spdlog.h>

@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
+cmake_policy(VERSION 3.10)
 project(opengllearning)
-cmake_policy(VERSION 3.0)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 file(GLOB INCLUDE_DIRS lib/*/include)
-
-include_directories(${INCLUDE_DIRS} lib/glm src)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -16,5 +15,12 @@ add_subdirectory(lib/glfw)
 aux_source_directory(src SRC_FILES)
 file(GLOB_RECURSE HEADER_FILES "src/*.h")
 
-add_executable(app ${SRC_FILES} lib/glad/src/glad.c lib/stb_image/src/stb_image.c ${HEADER_FILES})
-target_link_libraries(app glfw)
+include_directories(${INCLUDE_DIRS} lib/glm)
+add_library(GLAD "lib/glad/src/glad.c")
+add_library(STB_IMAGE "lib/stb_image/src/stb_image.c")
+
+add_executable(app ${SRC_FILES} ${HEADER_FILES})
+target_include_directories(app INTERFACE src)
+target_link_libraries(app PUBLIC glfw GLAD STB_IMAGE)
+install(TARGETS app DESTINATION bin)
+install(FILES ${HEADER_FILES} DESTINATION include)

@@ -11,6 +11,8 @@ namespace opengllearning {
         void makeContextCurrent();
         void swapBuffers();
         void setFramebufferSizeCallback(GLFWframebuffersizefun callback);
+        void setKeyCallback(GLFWkeyfun callback);
+        void setCursorPosCallback(GLFWcursorposfun callback);
         bool shouldClose();
         void setShouldClose(bool value);
         int getKey(int key);

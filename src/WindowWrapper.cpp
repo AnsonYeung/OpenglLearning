@@ -38,6 +38,14 @@ namespace opengllearning {
         glfwSetFramebufferSizeCallback(m_window, callback);
     }
 
+    void WindowWrapper::setKeyCallback(GLFWkeyfun callback) {
+        glfwSetKeyCallback(m_window, callback);
+    }
+
+    void WindowWrapper::setCursorPosCallback(GLFWcursorposfun callback) {
+        glfwSetCursorPosCallback(m_window, callback);
+    }
+
     bool WindowWrapper::shouldClose() {
         return glfwWindowShouldClose(m_window);
     }

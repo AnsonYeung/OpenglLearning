@@ -39,7 +39,7 @@ namespace opengllearning {
         if (cacheIt != m_uniformCache.end()) {
             return cacheIt->second;
         }
-        
+
         // cache miss
         GLuint loc = glGetUniformLocation(m_id, name.c_str());
         m_uniformCache[name] = loc;

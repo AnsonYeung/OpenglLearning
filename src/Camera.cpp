@@ -1,6 +1,8 @@
 #include "Camera.h"
+#include <glm/trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 namespace opengllearning {
     Camera::Camera(float fov, float windowRatio, float x, float y, float z, float pitch, float yaw)
         : m_fov(fov), m_windowRatio(windowRatio), m_x(x), m_y(x), m_z(z), m_pitch(pitch), m_yaw(yaw) {

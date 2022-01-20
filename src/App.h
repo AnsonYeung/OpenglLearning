@@ -3,8 +3,6 @@
 #include "WindowWrapper.h"
 #include "ShaderProgram.h"
 #include "Camera.h"
-#include <unordered_map>
-#include <glm/glm.hpp>
 
 namespace opengllearning {
     class App {

@@ -1,6 +1,7 @@
 #pragma once
 #include "WindowWrapper.h"
-#include <glm/glm.hpp>
+#include <glm/mat4x4.hpp>
+
 namespace opengllearning {
     class Camera {
     public:

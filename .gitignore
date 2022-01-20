@@ -27,5 +27,9 @@ Generated\ Files/
 publish/
 
 tags
-tags.*
+compile_commands.json
+*.lock
+*.temp
+.clangd
+
 build

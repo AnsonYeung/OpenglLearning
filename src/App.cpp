@@ -1,9 +1,9 @@
 #include "App.h"
 #include "Texture2D.h"
 #include <spdlog/spdlog.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/trigonometric.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/ext/matrix_transform.hpp>
 
 namespace opengllearning {
 
@@ -32,7 +32,7 @@ namespace opengllearning {
         return window;
 
     }
-    
+
     ShaderProgram App::initShader() {
 
         // shader program are run in the gpu graphics pipeline
@@ -88,7 +88,6 @@ namespace opengllearning {
             0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
             0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
             0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-            
             // extra vertexes for textures, it's impossible to have correct texture on top and bottom face otherwise
             // ...
         };
@@ -116,7 +115,7 @@ namespace opengllearning {
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(6 * sizeof(float)));
         glEnableVertexAttribArray(2);
 
-        // using element buffer object allow us to reuse vertices, 
+        // using element buffer object allow us to reuse vertices
         unsigned int indices[] = {
             0, 1, 2,
             1, 2, 4,

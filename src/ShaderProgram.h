@@ -1,7 +1,9 @@
 #pragma once
 #include "base.h"
 #include "Shader.h"
+#include <string>
 #include <unordered_map>
+
 namespace opengllearning {
     class ShaderProgram {
     public:

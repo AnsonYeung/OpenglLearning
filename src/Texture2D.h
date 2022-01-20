@@ -1,5 +1,6 @@
 #pragma once
 #include "base.h"
+
 namespace opengllearning {
     class Texture2D {
     public:

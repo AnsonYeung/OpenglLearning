@@ -8,9 +8,7 @@ To build, first clone the repository and generate the required project files
 ```
 git clone https://github.com/AnsonYeung/OpenglLearning.git --recursive
 cd OpenglLearning
-mkdir build
-cd build
-cmake ..
+cmake -S . -B build
 ```
 If you forgot to clone recursively, cmake will complain about `lib/glfw`, use the following command to clone the submodules
 ```
@@ -29,9 +27,7 @@ Use `make` to generate the binary.
 ## Cross-compiling on Unix for Windows
 Cross compiling will static link `libgcc` and `libstdc++` as the required dll might be absent in the running environment
 ```
-mkdir build
-cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=../CMake/x86_64-w64-mingw32.cmake ..
+cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=cmake/x86_64-w64-mingw32.cmake ..
 ```
 Then use `make` to generate the executable for Windows.
 

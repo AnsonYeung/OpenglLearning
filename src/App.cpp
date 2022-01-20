@@ -1,7 +1,6 @@
 #include "App.h"
 #include "Texture2D.h"
 #include <spdlog/spdlog.h>
-#include <array>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -37,7 +36,7 @@ namespace opengllearning {
     ShaderProgram App::initShader() {
 
         // shader program are run in the gpu graphics pipeline
-        return { "res/shader/vertexshader.vert", "res/shader/fragmentshader.frag" };
+        return { "res/shader/shader.vert", "res/shader/shader.frag" };
 
     }
 
@@ -192,14 +191,14 @@ namespace opengllearning {
         app.draw();
     }
 
-    void App::onCursorMove(GLFWwindow *window, double xpos, double ypos) {
-        static double prevX = xpos;
-        static double prevY = ypos;
+    void App::onCursorMove(GLFWwindow *window, double xPos, double yPos) {
+        static double prevX = xPos;
+        static double prevY = yPos;
         constexpr double cameraSpeed = glm::radians(0.1f);
         App &app = *currentApp;
-        app.m_camera.changeAngleClamped(static_cast<float>(-(ypos - prevY) * cameraSpeed), static_cast<float>(-(xpos - prevX) * cameraSpeed));
-        prevX = xpos;
-        prevY = ypos;
+        app.m_camera.changeAngleClamped(static_cast<float>(-(yPos - prevY) * cameraSpeed), static_cast<float>(-(xPos - prevX) * cameraSpeed));
+        prevX = xPos;
+        prevY = yPos;
     }
 
     void App::processFrameInput() {

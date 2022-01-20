@@ -31,7 +31,7 @@ namespace opengllearning {
         static ShaderProgram initShader();
         static void onFramebufferResize(GLFWwindow *window, int width, int height);
         static void onKeyEvent(GLFWwindow *window, int key, int scancode, int action, int mods);
-        static void onCursorMove(GLFWwindow *window, double xpos, double ypos);
+        static void onCursorMove(GLFWwindow *window, double xPos, double yPos);
 
         void processFrameInput();
         void draw();

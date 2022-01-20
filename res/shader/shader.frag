@@ -8,7 +8,7 @@ uniform sampler2D ourTexture1;
 
 float normalizeColor(float c) {
     return sqrt(c);
-    return c * c;
+    // return c * c;
 }
 
 void main()

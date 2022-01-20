@@ -1,8 +1,6 @@
 #include "ShaderProgram.h"
-#pragma warning(push)
-#pragma warning(disable: 4005)
 #include <spdlog/spdlog.h>
-#pragma warning(pop)
+
 namespace opengllearning {
 
 	ShaderProgram::ShaderProgram(const Shader &vert, const Shader &frag)

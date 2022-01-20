@@ -1,8 +1,6 @@
 #include "WindowWrapper.h"
-#pragma warning(push)
-#pragma warning(disable: 4005)
 #include <spdlog/spdlog.h>
-#pragma warning(pop)
+
 namespace opengllearning {
     WindowWrapper::WindowWrapper(int width, int height, const char *title, GLFWmonitor *monitor, GLFWwindow *share)
         : m_window(makeWindow(width, height, title, monitor, share)) {

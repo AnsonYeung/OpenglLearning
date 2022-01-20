@@ -1,9 +1,7 @@
 #include "Texture2D.h"
 #include "stb_image.h"
-#pragma warning(push)
-#pragma warning(disable: 4005)
 #include <spdlog/spdlog.h>
-#pragma warning(pop)
+
 namespace opengllearning {
 
 	Texture2D::Texture2D(GLenum texture, const char *filename)

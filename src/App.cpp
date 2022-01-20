@@ -1,9 +1,7 @@
 #include "App.h"
 #include "Texture2D.h"
-#pragma warning(push)
-#pragma warning(disable: 4005)
 #include <spdlog/spdlog.h>
-#pragma warning(pop)
+#include <array>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>

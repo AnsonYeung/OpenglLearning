@@ -1,10 +1,7 @@
 #include "Shader.h"
 #include <fstream>
 #include <sstream>
-#pragma warning(push)
-#pragma warning(disable: 4005)
 #include <spdlog/spdlog.h>
-#pragma warning(pop)
 
 namespace opengllearning {
 

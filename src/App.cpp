@@ -208,7 +208,7 @@ namespace opengllearning {
         float deltaTime = (float)glfwGetTime() - lastTime;
         lastTime += deltaTime;
         float moveDist = deltaTime * movementSpeed;
-        spdlog::debug("frame delta: {}s = fps: {}, moveDist: {}", deltaTime, 1 / deltaTime, moveDist);
+        // spdlog::debug("frame delta: {}s = fps: {}, moveDist: {}", deltaTime, 1 / deltaTime, moveDist);
         if (m_window.getKey(GLFW_KEY_UP) || m_window.getKey(GLFW_KEY_W)) {
             m_camera.moveWithYawOnly(0.0f, 0.0f, -moveDist);
         }

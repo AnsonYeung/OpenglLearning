@@ -3,7 +3,7 @@
 
 namespace opengllearning {
 
-	ShaderProgram::ShaderProgram(const Shader &vert, const Shader &frag)
+    ShaderProgram::ShaderProgram(const Shader &vert, const Shader &frag)
         :m_id(glCreateProgram()){
 
         glAttachShader(m_id, vert.id);
@@ -13,7 +13,7 @@ namespace opengllearning {
 
         spdlog::debug("Created shader prorgram (id: {})", m_id);
 
-	}
+    }
 
     ShaderProgram::~ShaderProgram() {
         glDeleteProgram(m_id);

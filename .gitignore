@@ -28,5 +28,4 @@ publish/
 
 tags
 tags.*
-cmake-build-debug
 build

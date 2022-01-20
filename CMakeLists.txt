@@ -20,8 +20,6 @@ target_include_directories(GLAD PUBLIC "lib/glad/include")
 add_library(STB_IMAGE "lib/stb_image/src/stb_image.c")
 target_include_directories(STB_IMAGE PUBLIC "lib/stb_image/include")
 
-configure_file(.editorconfig .editorconfig COPYONLY)
-
 # including the header files as a hack for visual studio to recognize there are header files.
 add_executable(app ${SRC_FILES} ${HEADER_FILES})
 target_include_directories(app PRIVATE "lib/glm")

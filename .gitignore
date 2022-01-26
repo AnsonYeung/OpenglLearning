@@ -30,6 +30,6 @@ tags
 compile_commands.json
 *.lock
 *.temp
-.clangd
+.cache
 
 build

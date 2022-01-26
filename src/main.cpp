@@ -8,6 +8,10 @@ int main() {
     spdlog::debug("Current working directory is {}", std::filesystem::current_path().string());
     spdlog::info("Initializing and creating GLFW Window");
 
+    glfwSetErrorCallback([] (int error, const char *description) {
+        spdlog::error("GLFW error {}: {}", error, description);
+    });
+
     if (!glfwInit()) {
         spdlog::critical("Failed to initialize GLFW");
         return 1;

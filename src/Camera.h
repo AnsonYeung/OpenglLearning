@@ -14,9 +14,9 @@ namespace opengllearning {
     private:
         constexpr static float nearDist = 0.1f;
         constexpr static float farDist = 100.0f;
+        float m_fov, m_windowRatio;
         float m_x, m_y, m_z;
         float m_pitch, m_yaw;
-        float m_fov, m_windowRatio;
         glm::mat4 m_transformMatrix;
         void recalculate();
     };

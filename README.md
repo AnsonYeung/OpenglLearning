@@ -30,7 +30,7 @@ Open the solution in the `build` folder, then set `app` as startup project and c
 Cross compiling will static link `libgcc` and `libstdc++` as the required dll might be absent in the running environment
 ```
 cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=cmake/x86_64-w64-mingw32.cmake
-make -j8
+cd build && make -j8
 ```
 
 # Running

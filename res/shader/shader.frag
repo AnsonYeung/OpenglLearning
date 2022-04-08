@@ -7,7 +7,7 @@ uniform sampler2D ourTexture0;
 uniform sampler2D ourTexture1;
 
 float normalizeColor(float c) {
-    return sqrt(c);
+    return sqrt(255 * 255 * c) / 255;
     // return c * c;
 }
 
